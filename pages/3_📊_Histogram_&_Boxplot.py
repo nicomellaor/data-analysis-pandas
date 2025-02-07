@@ -6,7 +6,9 @@ from functions import count_outliers
 
 st.set_page_config(page_title="Histogram & Boxplot", page_icon="📊")
 
-st.markdown("# Histogram & Boxplot")
+st.markdown("""
+            # Histogram & Boxplot
+            Displays both graphs and counts the number of outliers. Filter by column (numeric only).""")
 
 if "data" in st.session_state:
     df = st.session_state["data"]
@@ -31,7 +33,7 @@ if "data" in st.session_state:
         st.pyplot(fig)
 
         outliers = count_outliers(df[option])
-        st.write(f"### Number of :orange[Outliers]: {outliers}")
+        st.write("### Number of :orange[Outliers]: ", outliers)
 
 
 else:

@@ -5,7 +5,8 @@ st.set_page_config(page_title="Descriptive Statistics", page_icon="📈")
 
 st.markdown("""
             # Descriptive Statistics
-            Summary statistics of the Dataframe provided""")
+            Summary statistics of the Dataframe provided. Filter by column to display the summary table (all numerics by default).
+            Shows measures of central tendency and dispersion.""")
 
 if "data" in st.session_state:
     df = st.session_state["data"]

@@ -17,3 +17,22 @@ def calculate_iqr(df):
     Q1 = df_nums.quantile(0.25)
     Q3 = df_nums.quantile(0.75)
     return Q3 - Q1 #return a Series/DF
+
+def replace_nulls(df_column, value):
+    pass
+
+def remove_nulls(df_column):
+    pass
+
+def change_to_datetime(df_column):
+    # fix date format
+    pass
+
+def count_inconsistent_ages(df_column):
+    pass
+
+def replace_ages(df_column, value):
+    pass
+
+def remove_ages(df_column):
+    pass

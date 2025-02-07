@@ -1,7 +1,7 @@
 import streamlit as st
 from DataAnalysis import DataAnalysis
 
-st.set_page_config(page_title="Data Analysis App", page_icon="📊")
+st.set_page_config(page_title="Data Analysis App", page_icon="🐼")
 
 st.title("Data Analysis App with Pandas")
 
