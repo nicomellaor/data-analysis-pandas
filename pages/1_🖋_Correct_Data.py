@@ -1,5 +1,4 @@
 import streamlit as st
-from DataAnalysis import DataAnalysis
 
 st.set_page_config(page_title="Correct Data", page_icon="🖋")
 

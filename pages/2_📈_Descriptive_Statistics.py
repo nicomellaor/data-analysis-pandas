@@ -1,5 +1,5 @@
 import streamlit as st
-from DataAnalysis import DataAnalysis
+from functions import calculate_iqr
 
 st.set_page_config(page_title="Descriptive Statistics", page_icon="📈")
 
@@ -22,5 +22,10 @@ if "data" in st.session_state:
     st.write(df.mean(numeric_only=True).to_frame(name="Mean"))
     st.write(df.median(numeric_only=True).to_frame(name="Median"))
     st.write(df.mode().iloc[0].to_frame(name="Mode"))
+
+    st.write("## Dispersion Measures")
+    st.write(df.std(numeric_only=True).to_frame(name="Std"))
+    st.write(df.var(numeric_only=True).to_frame(name="Var"))
+    st.write(calculate_iqr(df).to_frame(name="IQR"))
 else:
     st.error("No data uploaded")

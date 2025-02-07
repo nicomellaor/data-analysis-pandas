@@ -5,8 +5,6 @@ st.set_page_config(page_title="Data Analysis App", page_icon="📊")
 
 st.title("Data Analysis App with Pandas")
 
-st.sidebar.info("Select an option above")
-
 st.markdown('''
     This is a paragraph example of the explaination of the project.
 ''') 
@@ -17,6 +15,7 @@ if uploaded_file is not None:
     df = da.get_df()
     st.session_state["data"] = df
     st.success("Data successfully uploaded")
+    st.sidebar.info("Select an option above")
     
 if "data" in st.session_state:
     df = st.session_state["data"]

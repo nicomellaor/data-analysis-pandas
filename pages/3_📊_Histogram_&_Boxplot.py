@@ -2,6 +2,7 @@ import streamlit as st
 import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
+from functions import count_outliers
 
 st.set_page_config(page_title="Histogram & Boxplot", page_icon="📊")
 
@@ -28,6 +29,9 @@ if "data" in st.session_state:
         ax.set_title(f"Boxplot {option}")
         ax.xaxis.grid(color="lightgray", linestyle="--")
         st.pyplot(fig)
+
+        outliers = count_outliers(df[option])
+        st.write(f"### Number of :orange[Outliers]: {outliers}")
 
 
 else:
