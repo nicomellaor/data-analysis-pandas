@@ -1,4 +1,5 @@
 import streamlit as st
+from functions import replace_nulls, remove_nulls, change_to_datetime, count_inconsistent_ages, replace_ages, remove_ages
 
 st.set_page_config(page_title="Fix Data", page_icon="🖋")
 
@@ -16,32 +17,38 @@ if "data" in st.session_state:
     duplicated = df.duplicated().sum()
     st.write("duplicated data counted:", duplicated)
 
-    st.write(":orange-background[Select what to do with null values]")
-    left, right = st.columns(2)
+    st.write(":orange-background[Select what to do with null values. First, select one of the columns below.]")
+    column_names = list(df.columns)
+    option_null = st.selectbox("Column of nulls", column_names, index=None, placeholder="Choose a column of nulls")
+
     number = st.number_input("Replace custom", placeholder="Type a number...", key="null_input")
     if st.button(f"Replace with {number}"):
-        #function
+        new_df = replace_nulls(df, option_null, number)
+        st.session_state["data"] = new_df
         st.success("Values successfully replaced")
 
-    if left.button("Replace with median", use_container_width=True):
-        #function
+    if st.button("Replace with median"):
+        mdn = df[option_null].median()
+        new_df = replace_nulls(df, option_null, mdn)
+        st.session_state["data"] = new_df
         st.success("Values successfully replaced")
         
-    if right.button("Remove rows", use_container_width=True):
-        #function
+    if st.button("Remove rows"):
+        new_df = remove_nulls(df, option_null)
+        st.session_state["data"] = new_df
         st.success("Values successfully deleted")
 
     st.divider()
     
     st.write("### Date Column")
-    column_names = list(df.columns)
     option_date = st.selectbox("Select dates", column_names, index=None, placeholder="Select a date column...")
 
     if option_date:
         dtype = df[option_date].dtype
         st.write("dtype: ", dtype)
         if st.button("Change to datetime"):
-            #function
+            new_df = change_to_datetime(df, option_date)
+            st.session_state["data"] = new_df
             st.success("dtype successfully changed")
     
     st.divider()
@@ -50,20 +57,24 @@ if "data" in st.session_state:
     option_age = st.selectbox("Select ages", column_names, index=None, placeholder="Select an age column...")
     
     if option_age:
-        #function to count ages conditions
-        st.write("Inconsistent age data (numbers less than 0 and greater than 100): ")
-        left_2, right_2 = st.columns(2)
+        ages_num = count_inconsistent_ages(df, option_age)
+        st.write("Inconsistent age data (numbers less than 0 and greater than 100): ", ages_num)
+
         number_2 = st.number_input("Replace ages", value=0, placeholder="Type an age...", key="age_input")
         if st.button(f"Replace with {number_2}"):
-            #function
+            new_df = replace_ages(df, option_age, number_2)
+            st.session_state["data"] = new_df
             st.success("Values successfully replaced")
 
-        if left_2.button("Replace with median", use_container_width=True, key="button_l_2"):
-            #function
+        if st.button("Replace with median", key="button_l_2"):
+            mdn = df[option_age].median()
+            new_df = replace_ages(df, option_age, mdn)
+            st.session_state["data"] = new_df
             st.success("Values successfully replaced")
             
-        if right_2.button("Remove rows", use_container_width=True, key="button_r_2"):
-            #function
+        if st.button("Remove rows", key="button_r_2"):
+            new_df = remove_ages(df, option_age)
+            st.session_state["data"] = new_df
             st.success("Values successfully deleted")
 
 else:

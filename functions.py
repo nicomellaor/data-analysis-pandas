@@ -1,4 +1,5 @@
 import numpy as np
+import pandas as pd
 
 def calculate_outliers(df_column):
     Q1 = np.percentile(df_column, 25)
@@ -18,21 +19,40 @@ def calculate_iqr(df):
     Q3 = df_nums.quantile(0.75)
     return Q3 - Q1 #return a Series/DF
 
-def replace_nulls(df_column, value):
-    pass
+def replace_nulls(df, column, value):
+    for x in df.index:
+        if np.isnan(df.loc[x, column]):
+            df.loc[x, column] = value
+    return df
 
-def remove_nulls(df_column):
-    pass
+def remove_nulls(df, column):
+    for x in df.index:
+        if np.isnan(df.loc[x, column]):
+            df.drop(x, inplace=True)
+    return df
 
-def change_to_datetime(df_column):
-    # fix date format
-    pass
+def change_to_datetime(df, column):
+    #fix format DD-MM-YYYY to YYYY-MM-DD
+    for i in range(len(df[column])):
+        if(len(df.at[i,column].split("-")[0])!=4):
+            df.at[i,column]="-".join((df.at[i,column].split("-"))[::-1])
+        else:
+            continue
+    df[column] = pd.to_datetime(df[column], errors="coerce")
+    return df
 
-def count_inconsistent_ages(df_column):
-    pass
+def count_inconsistent_ages(df, column):
+    condition = (df[column] > 100) | (df[column] < 0)
+    return condition.sum()
 
-def replace_ages(df_column, value):
-    pass
+def replace_ages(df, column, value):
+    for x in df.index:
+        if (df.loc[x, column] > 100) | (df.loc[x, column] < 0):
+            df.loc[x, column] = value
+    return df
 
-def remove_ages(df_column):
-    pass
+def remove_ages(df, column):
+    for x in df.index:
+        if (df.loc[x, column] > 100) | (df.loc[x, column] < 0):
+            df.drop(x, inplace=True)
+    return df
