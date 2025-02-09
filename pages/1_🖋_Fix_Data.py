@@ -17,7 +17,7 @@ if "data" in st.session_state:
     duplicated = df.duplicated().sum()
     st.write("duplicated data counted:", duplicated)
 
-    st.write(":orange-background[Select what to do with null values. First, select one of the columns below.]")
+    st.write(":orange-background[Select what to do with null values. First, **select one** of the columns below.]")
     column_names = list(df.columns)
     option_null = st.selectbox("Column of nulls", column_names, index=None, placeholder="Choose a column of nulls")
 
@@ -76,6 +76,8 @@ if "data" in st.session_state:
             new_df = remove_ages(df, option_age)
             st.session_state["data"] = new_df
             st.success("Values successfully deleted")
+
+    st.markdown(":orange-background[Once you have cleaned the data, you can **download** the CSV file by clicking on the *download button* below in the **Main** page table.]")
 
 else:
     st.error("No data uploaded")

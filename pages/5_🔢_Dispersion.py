@@ -7,7 +7,7 @@ st.set_page_config(page_title="Dispersion", page_icon="🔢")
 
 st.markdown("""
             # Dispersion
-            Shows a Scatter plot to observe relationships between two variables (x & y). Numeric columns only.""")
+            Shows a Scatter plot to observe relationships between two variables (x & y). Numeric and datetime columns only.""")
 
 if "data" in st.session_state:
     df = st.session_state["data"]
