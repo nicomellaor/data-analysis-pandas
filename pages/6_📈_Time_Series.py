@@ -9,10 +9,10 @@ st.markdown("""
             # Time Series Analysis
             Time series can be decomposed as a combination of level, trend, seasonality and noise.
             
-            - Level: average value in the series
-            - Trend: increasing or decreasing value in the series
-            - Seasonality: repeating short-term cycle in the series
-            - Noise: random variation in the series
+            - **Level**: average value in the series
+            - **Trend**: increasing or decreasing value in the series
+            - **Seasonality**: repeating short-term cycle in the series
+            - **Noise**: random variation in the series
             
             More info: [How to Decompose Time Series Data into Trend and Seasonality.](https://machinelearningmastery.com/decompose-time-series-data-trend-seasonality/)""")
 

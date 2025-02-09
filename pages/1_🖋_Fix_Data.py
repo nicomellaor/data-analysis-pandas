@@ -21,22 +21,23 @@ if "data" in st.session_state:
     column_names = list(df.columns)
     option_null = st.selectbox("Column of nulls", column_names, index=None, placeholder="Choose a column of nulls")
 
-    number = st.number_input("Replace custom", placeholder="Type a number...", key="null_input")
-    if st.button(f"Replace with {number}"):
-        new_df = replace_nulls(df, option_null, number)
-        st.session_state["data"] = new_df
-        st.success("Values successfully replaced")
+    if option_null:
+        number = st.number_input("Replace custom", placeholder="Type a number...", key="null_input")
+        if st.button(f"Replace with {number}"):
+            new_df = replace_nulls(df, option_null, number)
+            st.session_state["data"] = new_df
+            st.success("Values successfully replaced")
 
-    if st.button("Replace with median"):
-        mdn = df[option_null].median()
-        new_df = replace_nulls(df, option_null, mdn)
-        st.session_state["data"] = new_df
-        st.success("Values successfully replaced")
-        
-    if st.button("Remove rows"):
-        new_df = remove_nulls(df, option_null)
-        st.session_state["data"] = new_df
-        st.success("Values successfully deleted")
+        if st.button("Replace with median"):
+            mdn = df[option_null].median()
+            new_df = replace_nulls(df, option_null, mdn)
+            st.session_state["data"] = new_df
+            st.success("Values successfully replaced")
+            
+        if st.button("Remove rows"):
+            new_df = remove_nulls(df, option_null)
+            st.session_state["data"] = new_df
+            st.success("Values successfully deleted")
 
     st.divider()
     
